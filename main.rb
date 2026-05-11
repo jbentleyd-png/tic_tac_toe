@@ -10,9 +10,20 @@ def start_game
   puts "Let's play tic-tac-toe!"
 end
 
+def input_ok?(input)
+  %w[TL TM TR ML MM MR BL BM BR].each { |name| return true if input == name }
+  false
+end
+
 def ask_move
+  puts "Please input your move like this:\n\t\"tr\" (meaning top-right)\n\t\"mm\" (meaning middle-middle)\n\t\"bl\" (meaning bottom-left)"
   print 'Where would you like to play? '
-  gets.chomp.upcase
+  input = gets.chomp.upcase
+  until input_ok?(input)
+    print 'Bad input, try again: '
+    input = gets.chomp.upcase
+  end
 end
 
 start_game
+ask_move
