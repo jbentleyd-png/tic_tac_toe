@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Space
-  @@spaces_count = 0
+  attr_accessor :name, :row, :column, :marked_by
 
   def initialize(name)
     @name = name
@@ -13,11 +15,6 @@ class Space
               else
                 name[1] == 'M' ? 'middle' : 'right'
               end
-    puts "#{@row}, #{@column}"
-    @@spaces_count += 1
-  end
-
-  def self.count_spaces
-    puts "#{@@spaces_count} spaces made"
+    @marked_by = nil
   end
 end
