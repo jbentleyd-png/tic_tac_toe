@@ -17,4 +17,8 @@ class Space
               end
     @marked_by = nil
   end
+
+  def selected(player)
+    @marked_by = player
+  end
 end
