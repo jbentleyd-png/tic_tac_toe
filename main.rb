@@ -7,8 +7,9 @@ require_relative 'lib/winning_lanes'
 def start_game
   # reset any global vars or object properties or whatever
   board = Board.new
-  winning_lanes = define_winning_lanes(board)
+  # winning_lanes = define_winning_lanes(board)
   puts "Let's play tic-tac-toe!"
+  board
 end
 
 def input_ok?(input)
@@ -25,15 +26,15 @@ def ask_move
     print 'Bad input, try again: '
     input = gets.chomp.upcase
   end
+  input
 end
 
-def make_move(player)
-  player_input = ask_move
-  # space = Board.find_space(player_input)
-  puts "#{space.name} was played"
+def make_move(player, board)
+  player_input = ask_move.downcase.to_sym
+  chosen_space = board.space_hash[player_input]
+  chosen_space.marked_by = player
+  board.display_board # move to other method?
 end
 
-# start_game
-# make_move('player 1')
-Board.new.display_board
+make_move('x', start_game)
 # ask_move

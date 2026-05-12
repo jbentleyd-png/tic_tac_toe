@@ -1,8 +1,8 @@
 class Board
   attr_reader :space_list
-  attr_accessor :tl, :tm, :tr, :ml, :mm, :mr, :bl, :bm, :br
+  attr_accessor :space_hash
 
-  # inputs capitalized, objects downcased
+  # upcase for standardization & colrow names, objects downcased
   @@space_list = %w[TL TM TR ML MM MR BL BM BR]
 
   def self.space_list
@@ -10,15 +10,17 @@ class Board
   end
 
   def initialize
-    @tl = Space.new(@@space_list[0])
-    @tm = Space.new(@@space_list[1])
-    @tr = Space.new(@@space_list[2])
-    @ml = Space.new(@@space_list[3])
-    @mm = Space.new(@@space_list[4])
-    @mr = Space.new(@@space_list[5])
-    @bl = Space.new(@@space_list[6])
-    @bm = Space.new(@@space_list[7])
-    @br = Space.new(@@space_list[8])
+    @space_hash = {
+      tl: Space.new(@@space_list[0]),
+      tm: Space.new(@@space_list[1]),
+      tr: Space.new(@@space_list[2]),
+      ml: Space.new(@@space_list[3]),
+      mm: Space.new(@@space_list[4]),
+      mr: Space.new(@@space_list[5]),
+      bl: Space.new(@@space_list[6]),
+      bm: Space.new(@@space_list[7]),
+      br: Space.new(@@space_list[8])
+    }
   end
 
   def find_space(player_input)
@@ -26,10 +28,10 @@ class Board
   end
 
   def display_board
-    puts "\t\t #{tl.marked_by} | #{tm.marked_by} | #{tr.marked_by}"
+    puts "\t\t #{space_hash[:tl].marked_by} | #{space_hash[:tm].marked_by} | #{space_hash[:tr].marked_by}"
     puts "\t\t-----------"
-    puts "\t\t #{ml.marked_by} | #{mm.marked_by} | #{mr.marked_by}"
+    puts "\t\t #{space_hash[:ml].marked_by} | #{space_hash[:mm].marked_by} | #{space_hash[:mr].marked_by}"
     puts "\t\t-----------"
-    puts "\t\t #{bl.marked_by} | #{bm.marked_by} | #{br.marked_by}"
+    puts "\t\t #{space_hash[:bl].marked_by} | #{space_hash[:bm].marked_by} | #{space_hash[:br].marked_by}"
   end
 end
