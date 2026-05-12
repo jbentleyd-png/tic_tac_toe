@@ -1,23 +1,3 @@
-class ValidInputs
-  @@list = %w[TL TM TR ML MM MR BL BM BR]
-
-  def self.list
-    @@list
-  end
-
-  def self.find_space(player_input)
-    @@list.find { |name| name == player_input }
-  end
-end
-
-def new_board
-  board = []
-  ValidInputs.list.each do |name|
-    board.push Space.new(name)
-  end
-  board
-end
-
 def define_winning_rows(board)
   top_row = []
   middle_row = []
