@@ -26,10 +26,10 @@ class Board
   end
 
   def display_board
-    puts "\t - | - | -"
-    puts "\t-----------"
-    puts "\t - | - | -"
-    puts "\t-----------"
-    puts "\t - | - | -"
+    puts "\t\t #{tl.marked_by} | #{tm.marked_by} | #{tr.marked_by}"
+    puts "\t\t-----------"
+    puts "\t\t #{ml.marked_by} | #{mm.marked_by} | #{mr.marked_by}"
+    puts "\t\t-----------"
+    puts "\t\t #{bl.marked_by} | #{bm.marked_by} | #{br.marked_by}"
   end
 end

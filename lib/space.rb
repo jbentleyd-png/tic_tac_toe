@@ -18,7 +18,7 @@ class Space
       @can_tl_diag = false
       @can_bl_diag = false
     end
-    @marked_by = nil
+    @marked_by = '-'
   end
 
   def selected(player)

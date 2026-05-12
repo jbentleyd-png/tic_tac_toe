@@ -36,4 +36,4 @@ end
 # start_game
 # make_move('player 1')
 Board.new.display_board
-ask_move
+# ask_move
