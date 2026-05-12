@@ -5,16 +5,19 @@ class Space
 
   def initialize(name)
     @name = name
-    @row = if name[0] == 'T'
-             'top'
-           else
-             name[0] == 'M' ? 'middle' : 'bottom'
-           end
-    @column = if name[1] == 'L'
-                'left'
-              else
-                name[1] == 'M' ? 'middle' : 'right'
-              end
+    @row = name[0]
+    @column = name[1]
+    if name == 'MM'
+      @can_tl_diag = true
+      @can_bl_diag = true
+    elsif %w[TL BR].include?(name)
+      @can_tl_diag = true
+    elsif %w[BL TR].include?(name)
+      @can_bl_diag = true
+    else
+      @can_tl_diag = false
+      @can_bl_diag = false
+    end
     @marked_by = nil
   end
 

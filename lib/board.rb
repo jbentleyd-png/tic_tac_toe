@@ -2,6 +2,7 @@ class Board
   attr_reader :space_list
   attr_accessor :tl, :tm, :tr, :ml, :mm, :mr, :bl, :bm, :br
 
+  # inputs capitalized, objects downcased
   @@space_list = %w[TL TM TR ML MM MR BL BM BR]
 
   def self.space_list
@@ -22,5 +23,13 @@ class Board
 
   def find_space(player_input)
     @space_list.find { |name| name == player_input }
+  end
+
+  def display_board
+    puts "\t - | - | -"
+    puts "\t-----------"
+    puts "\t - | - | -"
+    puts "\t-----------"
+    puts "\t - | - | -"
   end
 end

@@ -47,3 +47,6 @@ def define_winning_lanes(board)
   puts output
   output
 end
+
+def create_winning_lanes_hash(board)
+end
