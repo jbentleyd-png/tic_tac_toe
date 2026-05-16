@@ -40,18 +40,15 @@ def make_move(board, game)
   board.display_board # move to other method?
 end
 
-def check_win(board, game)
-end
-
-board = start_game
-game = Game.new
-make_move(board, game)
-make_move(board, game)
-make_move(board, game)
-make_move(board, game)
-puts board.check_win(game)
-make_move(board, game)
-puts board.check_win(game)
+# board = start_game
+# game = Game.new
+# make_move(board, game)
+# make_move(board, game)
+# make_move(board, game)
+# make_move(board, game)
+# puts board.check_win?(game)
+# make_move(board, game)
+# puts board.check_win?(game)
 
 def play_game
   board = start_game
@@ -59,6 +56,9 @@ def play_game
 
   while game.winner.nil?
     make_move(board, game)
-    check_win(board, game)
+    board.check_win?(game)
   end
+  puts 'GG, fam'
 end
+
+play_game

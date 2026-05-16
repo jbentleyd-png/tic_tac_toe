@@ -51,7 +51,7 @@ class Board
     @last_played_space.marked_by = game.turn
   end
 
-  def check_win(game)
+  def check_win?(game)
     return false if game.round < 5
 
     lanes_to_check = {
@@ -63,7 +63,7 @@ class Board
     lanes_to_check.each_value do |lane|
       if lane.all? { |space| space.marked_by == game.turn }
         game.winner = game.turn
-        return true
+        return true # might not need this line due to outside while loop
       end
     end
     false
