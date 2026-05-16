@@ -67,7 +67,7 @@ def play_game
   game = Game.new
 
   make_move(board, game) until board.check_win?(game)
-  puts "#{game.winner} wins! GG, fam."
+  puts "\e[31m#{"#{game.winner} wins! GG, fam."}\e[0m"
 end
 
 play_game

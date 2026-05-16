@@ -51,42 +51,38 @@ class Board
   end
 
   def check_win?(game)
+    win = nil
     if game.round < 5
-      display_board
-      return false
-    end
-
-    lanes_to_check = {
-      row: @possible_lanes[:rows][@last_played_space.row],
-      column: @possible_lanes[:columns][@last_played_space.column]
-    }
-    if @last_played_space.instance_variable_defined?(:@tl)
-      lanes_to_check[:tl] =
-        @possible_lanes[:diags][@last_played_space.tl]
-    end
-    if @last_played_space.instance_variable_defined?(:@bl)
-      lanes_to_check[:bl] =
-        @possible_lanes[:diags][@last_played_space.bl]
-    end
-
-    lanes_to_check.each_value do |lane|
-      next unless lane.all? { |space| space.marked_by == game.turn }
-
-      lane.each do |space|
-        space.colorize(32)
+      win = false
+    elsif game.round < 9
+      lanes_to_check = {
+        row: @possible_lanes[:rows][@last_played_space.row],
+        column: @possible_lanes[:columns][@last_played_space.column]
+      }
+      if @last_played_space.instance_variable_defined?(:@tl)
+        lanes_to_check[:tl] =
+          @possible_lanes[:diags][@last_played_space.tl]
       end
-      display_board
-      game.winner = game.turn
-      return true
-    end
+      if @last_played_space.instance_variable_defined?(:@bl)
+        lanes_to_check[:bl] =
+          @possible_lanes[:diags][@last_played_space.bl]
+      end
 
-    if game.round == 9
+      lanes_to_check.each_value do |lane|
+        next unless lane.all? { |space| space.marked_by == game.turn }
+
+        lane.each do |space|
+          space.colorize(32)
+        end
+        game.winner = game.turn
+        win = true
+      end
+    else
       game.winner = 'Nobody'
-      display_board
-      return true # ends the game when spaces are filled
+      win = true # ends the game when spaces are filled
     end
     display_board
-    false
+    win
   end
 
   def display_board
