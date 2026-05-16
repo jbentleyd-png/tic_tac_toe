@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Board
-  attr_reader :space_list, :rows, :columns, :diags
+  attr_reader :space_list, :rows, :columns, :diags, :played_spaces
   attr_accessor :space_hash
 
   # upcase for standardization & colrow names, objects downcased
@@ -37,10 +37,13 @@ class Board
       top_left: [@space_hash[:tl], @space_hash[:mm], @space_hash[:br]],
       bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]]
     }
+    @played_spaces = []
   end
 
-  def find_space(player_input)
-    @space_list.find { |name| name == player_input }
+  def move(input, game)
+    @played_spaces.push(input)
+    chosen_space = @space_hash[input.downcase.to_sym]
+    chosen_space.marked_by = game.turn
   end
 
   def display_board

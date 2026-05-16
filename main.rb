@@ -2,7 +2,7 @@
 
 require_relative 'lib/space'
 require_relative 'lib/board'
-require_relative 'game'
+require_relative 'lib/game'
 
 def start_game
   # reset any global vars or object properties or whatever
@@ -16,12 +16,17 @@ def input_ok?(input)
   false
 end
 
-def ask_move
+def input_possible?(input, board)
+  board.played_spaces.each { |name| return false if input == name }
+  true
+end
+
+def ask_move(board)
   puts 'Please input your move like this: '
   puts "\t\"tr\" (meaning top-right)\n\t\"mm\" (meaning middle-middle)\n\t\"bl\" (meaning bottom-left)"
   print 'Where would you like to play? '
   input = gets.chomp.upcase
-  until input_ok?(input)
+  until input_ok?(input) && input_possible?(input, board)
     print 'Bad input, try again: '
     input = gets.chomp.upcase
   end
@@ -29,10 +34,13 @@ def ask_move
 end
 
 def make_move(board, game)
-  chosen_space = board.space_hash[ask_move.downcase.to_sym]
-  chosen_space.marked_by = game.turn
+  valid_input = ask_move(board)
+  board.move(valid_input, game)
   game.move
   board.display_board # move to other method?
+end
+
+def check_win(board, game)
 end
 
 board = start_game
@@ -40,3 +48,13 @@ game = Game.new
 make_move(board, game)
 make_move(board, game)
 make_move(board, game)
+
+def play_game
+  board = start_game
+  game = Game.new
+
+  while game.winner.nil?
+    make_move(board, game)
+    check_win(board, game)
+  end
+end

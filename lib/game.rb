@@ -1,10 +1,12 @@
 class Game
   attr_accessor :turn, :round, :winner, :board
+  attr_reader :played_spaces
 
   def initialize
     @turn = 'X'
     @round = 0
     @winner = nil
+    @played_spaces = []
   end
 
   def move
