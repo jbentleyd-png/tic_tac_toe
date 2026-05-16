@@ -2,22 +2,24 @@
 
 class Space
   attr_accessor :marked_by
-  attr_reader :name, :row, :column
+  attr_reader :name, :row, :column, :tl, :bl
 
   def initialize(name)
     @name = name
-    @row = name[0]
-    @column = name[1]
+    @row = name[0].to_sym
+    @column = name[1].to_sym
     if name == 'MM'
-      @can_tl_diag = true
-      @can_bl_diag = true
+      @tl = :top_left
+      @bl = :bottom_left
     elsif %w[TL BR].include?(name)
-      @can_tl_diag = true
+      @tl = :top_left
+      @bl = :none # avoids using a method on nil in board.check_win()
     elsif %w[BL TR].include?(name)
-      @can_bl_diag = true
+      @tl = :none
+      @bl = :bottom_left
     else
-      @can_tl_diag = false
-      @can_bl_diag = false
+      @tl = :none
+      @bl = :none
     end
     @marked_by = '-'
   end

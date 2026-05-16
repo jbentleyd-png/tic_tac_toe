@@ -48,6 +48,10 @@ game = Game.new
 make_move(board, game)
 make_move(board, game)
 make_move(board, game)
+make_move(board, game)
+puts board.check_win(game)
+make_move(board, game)
+puts board.check_win(game)
 
 def play_game
   board = start_game

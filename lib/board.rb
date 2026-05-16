@@ -23,27 +23,50 @@ class Board
       bm: Space.new(@@space_list[7]),
       br: Space.new(@@space_list[8])
     }
-    @rows = {
-      top: [@space_hash[:tl], @space_hash[:tm], @space_hash[:tr]],
-      middle: [@space_hash[:ml], @space_hash[:mm], @space_hash[:mr]],
-      bottom: [@space_hash[:bl], @space_hash[:bm], @space_hash[:br]]
+    @possible_lanes = {
+      rows: {
+        T: [@space_hash[:tl], @space_hash[:tm], @space_hash[:tr]],
+        M: [@space_hash[:ml], @space_hash[:mm], @space_hash[:mr]],
+        B: [@space_hash[:bl], @space_hash[:bm], @space_hash[:br]]
+      },
+      columns: {
+        L: [@space_hash[:tl], @space_hash[:ml], @space_hash[:bl]],
+        M: [@space_hash[:tm], @space_hash[:mm], @space_hash[:bm]],
+        R: [@space_hash[:tr], @space_hash[:mr], @space_hash[:br]]
+      },
+      diags: {
+        top_left: [@space_hash[:tl], @space_hash[:mm], @space_hash[:br]],
+        bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]],
+        none: [] # avoids using a method on nil in check_win()
+      }
     }
-    @columns = {
-      left: [@space_hash[:tl], @space_hash[:ml], @space_hash[:bl]],
-      middle: [@space_hash[:tm], @space_hash[:mm], @space_hash[:bm]],
-      right: [@space_hash[:tr], @space_hash[:mr], @space_hash[:br]]
-    }
-    @diags = {
-      top_left: [@space_hash[:tl], @space_hash[:mm], @space_hash[:br]],
-      bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]]
-    }
+
     @played_spaces = []
+    @last_played_space = nil
   end
 
   def move(input, game)
     @played_spaces.push(input)
-    chosen_space = @space_hash[input.downcase.to_sym]
-    chosen_space.marked_by = game.turn
+    @last_played_space = @space_hash[input.downcase.to_sym]
+    @last_played_space.marked_by = game.turn
+  end
+
+  def check_win(game)
+    return false if game.round < 5
+
+    lanes_to_check = {
+      row: @possible_lanes[:rows][@last_played_space.row],
+      column: @possible_lanes[:columns][@last_played_space.column],
+      tl: @possible_lanes[:diags][@last_played_space.tl],
+      bl: @possible_lanes[:diags][@last_played_space.bl]
+    }
+    lanes_to_check.each_value do |lane|
+      if lane.all? { |space| space.marked_by == game.turn }
+        game.winner = game.turn
+        return true
+      end
+    end
+    false
   end
 
   def display_board
