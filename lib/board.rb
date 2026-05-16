@@ -36,8 +36,7 @@ class Board
       },
       diags: {
         top_left: [@space_hash[:tl], @space_hash[:mm], @space_hash[:br]],
-        bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]],
-        none: [] # avoids using a method on nil in check_win()
+        bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]]
       }
     }
 
@@ -56,15 +55,29 @@ class Board
 
     lanes_to_check = {
       row: @possible_lanes[:rows][@last_played_space.row],
-      column: @possible_lanes[:columns][@last_played_space.column],
-      tl: @possible_lanes[:diags][@last_played_space.tl],
-      bl: @possible_lanes[:diags][@last_played_space.bl]
+      column: @possible_lanes[:columns][@last_played_space.column]
     }
+    if @last_played_space.instance_variable_defined?(:@tl)
+      lanes_to_check[:tl] =
+        @possible_lanes[:diags][@last_played_space.tl]
+    end
+    if @last_played_space.instance_variable_defined?(:@bl)
+      lanes_to_check[:bl] =
+        @possible_lanes[:diags][@last_played_space.bl]
+    end
+
     lanes_to_check.each_value do |lane|
-      if lane.all? { |space| space.marked_by == game.turn }
-        game.winner = game.turn
-        return true # might not need this line due to outside while loop
-      end
+      p lane.length
+      next unless lane.all? { |space| space.marked_by == game.turn }
+
+      game.winner = game.turn
+      p game.winner
+      return true
+    end
+
+    if game.round == 9
+      game.winner = 'Nobody'
+      return true # ends the game when spaces are filled
     end
     false
   end

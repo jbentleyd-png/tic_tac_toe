@@ -13,13 +13,8 @@ class Space
       @bl = :bottom_left
     elsif %w[TL BR].include?(name)
       @tl = :top_left
-      @bl = :none # avoids using a method on nil in board.check_win()
     elsif %w[BL TR].include?(name)
-      @tl = :none
       @bl = :bottom_left
-    else
-      @tl = :none
-      @bl = :none
     end
     @marked_by = '-'
   end

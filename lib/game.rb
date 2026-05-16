@@ -3,7 +3,7 @@ class Game
   attr_reader :played_spaces
 
   def initialize
-    @turn = 'X'
+    @turn = 'O'
     @round = 0
     @winner = nil
     @played_spaces = []
@@ -11,11 +11,11 @@ class Game
 
   def move
     @round += 1
-    @turn = if @turn == 'X'
-              'O'
-            else
+    @turn = if @turn == 'O'
               'X'
+            else
+              'O'
             end
-    puts @round
+    puts "Round #{@round}:"
   end
 end

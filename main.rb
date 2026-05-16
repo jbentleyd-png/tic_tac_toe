@@ -34,9 +34,9 @@ def ask_move(board)
 end
 
 def make_move(board, game)
+  game.move
   valid_input = ask_move(board)
   board.move(valid_input, game)
-  game.move
   board.display_board # move to other method?
 end
 
@@ -54,10 +54,7 @@ def play_game
   board = start_game
   game = Game.new
 
-  while game.winner.nil?
-    make_move(board, game)
-    board.check_win?(game)
-  end
+  make_move(board, game) until board.check_win?(game)
   puts 'GG, fam'
 end
 
