@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Board
-  attr_reader :space_list
+  attr_reader :space_list, :rows, :columns, :diags
   attr_accessor :space_hash
 
   # upcase for standardization & colrow names, objects downcased
@@ -20,6 +22,20 @@ class Board
       bl: Space.new(@@space_list[6]),
       bm: Space.new(@@space_list[7]),
       br: Space.new(@@space_list[8])
+    }
+    @rows = {
+      top: [@space_hash[:tl], @space_hash[:tm], @space_hash[:tr]],
+      middle: [@space_hash[:ml], @space_hash[:mm], @space_hash[:mr]],
+      bottom: [@space_hash[:bl], @space_hash[:bm], @space_hash[:br]]
+    }
+    @columns = {
+      left: [@space_hash[:tl], @space_hash[:ml], @space_hash[:bl]],
+      middle: [@space_hash[:tm], @space_hash[:mm], @space_hash[:bm]],
+      right: [@space_hash[:tr], @space_hash[:mr], @space_hash[:br]]
+    }
+    @diags = {
+      top_left: [@space_hash[:tl], @space_hash[:mm], @space_hash[:br]],
+      bottom_left: [@space_hash[:bl], @space_hash[:mm], @space_hash[:tr]]
     }
   end
 

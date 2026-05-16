@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Space
-  attr_accessor :name, :row, :column, :marked_by
+  attr_accessor :marked_by
+  attr_reader :name, :row, :column
 
   def initialize(name)
     @name = name
