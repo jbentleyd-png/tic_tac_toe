@@ -7,7 +7,6 @@ require_relative 'game'
 def start_game
   # reset any global vars or object properties or whatever
   board = Board.new
-  # winning_lanes = define_winning_lanes(board)
   puts "Let's play tic-tac-toe!"
   board
 end
@@ -41,5 +40,3 @@ game = Game.new
 make_move(board, game)
 make_move(board, game)
 make_move(board, game)
-
-# ask_move
