@@ -46,7 +46,6 @@ class Board
 
   def move(input, game)
     @played_spaces.push(input)
-    p played_spaces
     @last_played_space = @space_hash[input.downcase.to_sym]
     @last_played_space.marked_by = game.turn
   end
@@ -70,6 +69,10 @@ class Board
     lanes_to_check.each_value do |lane|
       next unless lane.all? { |space| space.marked_by == game.turn }
 
+      lane.each do |space|
+        space.colorize(32)
+      end
+      display_board
       game.winner = game.turn
       return true
     end

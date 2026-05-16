@@ -22,4 +22,8 @@ class Space
   def selected(player)
     @marked_by = player
   end
+
+  def colorize(color_code)
+    @marked_by = "\e[#{color_code}m#{@marked_by}\e[0m"
+  end
 end
