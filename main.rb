@@ -2,7 +2,7 @@
 
 require_relative 'lib/space'
 require_relative 'lib/board'
-require_relative 'lib/winning_lanes'
+require_relative 'game'
 
 def start_game
   # reset any global vars or object properties or whatever
@@ -29,12 +29,22 @@ def ask_move
   input
 end
 
-def make_move(player, board)
+def make_move(player, board, game)
   player_input = ask_move.downcase.to_sym
   chosen_space = board.space_hash[player_input]
   chosen_space.marked_by = player
+  game.turn = if game.turn == 'X'
+                'O'
+              else
+                'X'
+              end
   board.display_board # move to other method?
 end
 
-make_move('x', start_game)
+board = start_game
+game = Game.new
+make_move(game.turn, board, game)
+make_move(game.turn, board, game)
+make_move(game.turn, board, game)
+
 # ask_move
