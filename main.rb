@@ -55,7 +55,7 @@ def play_game
   game = Game.new
 
   make_move(board, game) until board.check_win?(game)
-  puts 'GG, fam'
+  puts "#{game.winner} wins! GG, fam."
 end
 
 play_game

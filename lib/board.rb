@@ -67,11 +67,9 @@ class Board
     end
 
     lanes_to_check.each_value do |lane|
-      p lane.length
       next unless lane.all? { |space| space.marked_by == game.turn }
 
       game.winner = game.turn
-      p game.winner
       return true
     end
 
