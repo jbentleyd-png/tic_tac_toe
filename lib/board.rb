@@ -46,6 +46,7 @@ class Board
 
   def move(input, game)
     @played_spaces.push(input)
+    p played_spaces
     @last_played_space = @space_hash[input.downcase.to_sym]
     @last_played_space.marked_by = game.turn
   end

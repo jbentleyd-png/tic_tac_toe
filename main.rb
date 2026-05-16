@@ -30,16 +30,18 @@ def ask_move(board, game)
   print "Player #{game.turn}, where would you like to play? "
   input = gets.chomp.upcase
 
-  until input_ok?(input)
-    puts 'Please input your move like this: '
-    puts "\t\"tr\" (meaning top-right)\n\t\"mm\" (meaning middle-middle)\n\t\"bl\" (meaning bottom-left)"
-    print 'Bad input, try again: '
-    input = gets.chomp.upcase
-  end
+  until input_ok?(input) && input_possible?(input, board)
+    unless input_ok?(input)
+      puts 'Please input your move like this: '
+      puts "\t\"tr\" (meaning top-right)\n\t\"mm\" (meaning middle-middle)\n\t\"bl\" (meaning bottom-left)"
+      print 'Bad input, try again: '
+      input = gets.chomp.upcase
+    end
 
-  until input_possible?(input, board)
-    print 'Space already taken, try again: '
-    input = gets.chomp.upcase
+    unless input_possible?(input, board)
+      print 'Space already taken, try again: '
+      input = gets.chomp.upcase
+    end
   end
   input
 end

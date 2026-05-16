@@ -6,7 +6,6 @@ class Game
     @turn = 'O'
     @round = 0
     @winner = nil
-    @played_spaces = []
   end
 
   def move
