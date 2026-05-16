@@ -7,9 +7,13 @@ class Game
     @winner = nil
   end
 
-  def start
-  end
-
-  def ask_move
+  def move
+    @round += 1
+    @turn = if @turn == 'X'
+              'O'
+            else
+              'X'
+            end
+    puts @round
   end
 end
