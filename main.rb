@@ -50,7 +50,6 @@ def make_move(board, game)
   game.move
   valid_input = ask_move(board, game)
   board.move(valid_input, game)
-  board.display_board # move to other method?
 end
 
 # board = start_game
