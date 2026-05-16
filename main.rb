@@ -33,11 +33,13 @@ def make_move(player, board, game)
   player_input = ask_move.downcase.to_sym
   chosen_space = board.space_hash[player_input]
   chosen_space.marked_by = player
+  game.round += 1
   game.turn = if game.turn == 'X'
                 'O'
               else
                 'X'
               end
+  puts game.round
   board.display_board # move to other method?
 end
 

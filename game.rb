@@ -3,7 +3,7 @@ class Game
 
   def initialize
     @turn = 'X'
-    @round = 1
+    @round = 0
     @winner = nil
   end
 
