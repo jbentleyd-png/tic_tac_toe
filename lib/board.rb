@@ -54,7 +54,7 @@ class Board
     win = nil
     if game.round < 5
       win = false
-    elsif game.round < 9
+    elsif game.round < 10
       lanes_to_check = {
         row: @possible_lanes[:rows][@last_played_space.row],
         column: @possible_lanes[:columns][@last_played_space.column]
