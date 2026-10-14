@@ -51,10 +51,9 @@ class Board
   end
 
   def check_win?(game)
-    win = nil
-    if game.round < 5
-      win = false
-    elsif game.round < 9
+    win = false
+
+    if game.round >= 5 # no win posssible before
       lanes_to_check = {
         row: @possible_lanes[:rows][@last_played_space.row],
         column: @possible_lanes[:columns][@last_played_space.column]
@@ -77,7 +76,9 @@ class Board
         game.winner = game.turn
         win = true
       end
-    else
+    end
+
+    if game.round == 9 && win == false
       game.winner = 'Nobody'
       win = true # ends the game when spaces are filled
     end
